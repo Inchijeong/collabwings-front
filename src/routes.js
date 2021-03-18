@@ -18,6 +18,9 @@ const Popovers = React.lazy(() => import('./views/base/popovers/Popovers'));
 const ProgressBar = React.lazy(() => import('./views/base/progress-bar/ProgressBar'));
 const Switches = React.lazy(() => import('./views/base/switches/Switches'));
 
+// const Home = React.lazy(() => import('./views/pages/home/Home'));
+const Workspaces = React.lazy(() => import('./views/pages/workspaces/Workspaces'));
+const Project = React.lazy(() => import('./views/pages/project/Project'));
 const Tabs = React.lazy(() => import('./views/base/tabs/Tabs'));
 const Tooltips = React.lazy(() => import('./views/base/tooltips/Tooltips'));
 const BrandButtons = React.lazy(() => import('./views/buttons/brand-buttons/BrandButtons'));
@@ -40,6 +43,8 @@ const User = React.lazy(() => import('./views/users/User'));
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
+  { path: '/workspaces', name: 'Workspaces', component: Workspaces },
+  { path: '/project/:project', name: 'Project', component: Project },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/theme', name: 'Theme', component: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', component: Colors },

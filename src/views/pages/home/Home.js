@@ -1,19 +1,16 @@
 import React from 'react'
 import {
-  TheContent,
-  TheSidebar,
   TheFooter,
   TheHeader
-} from './index'
+} from '../../../containers/index'
 
-const TheLayout = () => {
+const Home = () => {
   return (
     <div className="c-app c-default-layout">
-      <TheSidebar/>
       <div className="c-wrapper">
         <TheHeader/>
         <div className="c-body">
-          <TheContent/>
+          안녕하세요!!
         </div>
         <TheFooter/>
       </div>
@@ -21,4 +18,4 @@ const TheLayout = () => {
   )
 }
 
-export default TheLayout
+export default Home
