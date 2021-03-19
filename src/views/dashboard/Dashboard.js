@@ -1,4 +1,5 @@
 import React, { lazy } from 'react'
+import { Link } from 'react-router-dom'
 import {
   CBadge,
   CButton,
@@ -22,6 +23,9 @@ const WidgetsBrand = lazy(() => import('../widgets/WidgetsBrand.js'))
 const Dashboard = () => {
   return (
     <>
+      <Link to="/workspaces">
+        <CButton block color="primary">Workspaces</CButton>
+      </Link>
       <WidgetsDropdown />
       <CCard>
         <CCardBody>

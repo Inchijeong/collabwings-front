@@ -29,7 +29,16 @@ class App extends Component {
           <Switch>
             <Route exact path="/" name="Home" render={props => <TheLayout {...props}/>} />
             {/* <Route path="/" name="Layout" render={props => <TheLayout {...props}/>} /> */}
+            <Route path="/base" name="Layout" render={props => <TheLayout {...props}/>} />
+            <Route path="/buttons" name="Layout" render={props => <TheLayout {...props}/>} />
+            <Route path="/charts" name="Layout" render={props => <TheLayout {...props}/>} />
             <Route path="/dashboard" name="Dashboard" render={props => <TheLayout {...props}/>} />
+            <Route path="/icons" name="Layout" render={props => <TheLayout {...props}/>} />
+            <Route path="/notifications" name="Layout" render={props => <TheLayout {...props}/>} />
+            <Route path="/pages" name="Layout" render={props => <TheLayout {...props}/>} />
+            <Route path="/theme" name="Layout" render={props => <TheLayout {...props}/>} />
+            <Route path="/users" name="Layout" render={props => <TheLayout {...props}/>} />
+            <Route path="/widgets" name="Layout" render={props => <TheLayout {...props}/>} />
             <Route exact path="/workspaces" name="Workspaces" render={props => <Workspaces {...props}/>} />
             <Route exact path="/project/:project" name="Project" render={props => <TheLayout {...props}/>} />
             <Route exact path="/login" name="Login Page" render={props => <Login {...props}/>} />
