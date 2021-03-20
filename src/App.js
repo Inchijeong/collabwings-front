@@ -29,6 +29,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" name="Home" render={props => <TheLayout {...props}/>} />
             {/* <Route path="/" name="Layout" render={props => <TheLayout {...props}/>} /> */}
+            <Route path="/:team/channel" name="Layout" render={props => <TheLayout {...props}/>} />
             <Route path="/base" name="Layout" render={props => <TheLayout {...props}/>} />
             <Route path="/buttons" name="Layout" render={props => <TheLayout {...props}/>} />
             <Route path="/charts" name="Layout" render={props => <TheLayout {...props}/>} />
