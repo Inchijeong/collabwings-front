@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-  Route,
   Link
 } from 'react-router-dom'
 import {
@@ -10,20 +9,12 @@ import {
 } from '../../../containers/index'
 import {
   CContainer,
-  CFade,
-  CBadge,
-  CButton,
-  CButtonGroup,
   CCard,
   CCardBody,
-  CCardFooter,
   CCardHeader,
   CCol,
-  CProgress,
   CRow,
-  CCallout
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
 
 const Workspaces = () => {
   return (

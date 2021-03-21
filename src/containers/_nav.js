@@ -1,47 +1,28 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
+import { freeSet } from '@coreui/icons'
+// import {
+//   CButton,
+//   CModal
+// } from '@coreui/react'
 
 const _nav =  [
-  {
-    _tag: 'CSidebarNavDropdown',
-    name: 'Channels',
-    route: '/base',
-    icon: 'cil-speech',
-    _children: [
-      {
-        _tag: 'CSidebarNavItem',
-        name: 'General',
-        to: '/base/breadcrumbs',
-      },
-      {
-        _tag: 'CSidebarNavItem',
-        name: 'Chan1',
-        to: '/base/breadcrumbs',
-        icon: 'cil-transfer'
-      },
-      {
-        _tag: 'CSidebarNavItem',
-        name: 'Create a Channel',
-        to: '/base/cards',
-        icon: 'cil-plus'
-      }
-    ]
-  },
   {
     _tag: 'CSidebarNavTitle',
     _children: ['Channels']
   },
   {
     _tag: 'CSidebarNavItem',
-    name: 'general',
-    to: '/theme/colors',
+    name: 'General',
+    to: '/channel/general',
     icon: 'cil-speech',
   },
   {
     _tag: 'CSidebarNavItem',
     name: 'Create a Channel',
-    to: '/theme/colors',
-    icon: 'cil-plus',
+    onClick: () => alert('hi'),
+    // to: '/theme/colors',
+    icon: <CIcon name="cil-plus" customClasses="c-sidebar-nav-icon" content={freeSet.cilPlus}/>,
   },
   {
     _tag: 'CSidebarNavItem',

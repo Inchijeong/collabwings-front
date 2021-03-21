@@ -12,7 +12,7 @@ const loading = (
 const TheLayout = React.lazy(() => import('./containers/TheLayout'));
 
 // Pages
-const Home = React.lazy(() => import('./views/pages/home/Home'));
+// const Home = React.lazy(() => import('./views/pages/home/Home'));
 const Workspaces = React.lazy(() => import('./views/pages/workspaces/Workspaces'));
 // const Project = React.lazy(() => import('./views/pages/project/Project'));
 const Login = React.lazy(() => import('./views/pages/login/Login'));
@@ -29,7 +29,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" name="Home" render={props => <TheLayout {...props}/>} />
             {/* <Route path="/" name="Layout" render={props => <TheLayout {...props}/>} /> */}
-            <Route path="/:team/channel" name="Layout" render={props => <TheLayout {...props}/>} />
+            <Route path="/channel/:channel" name="Layout" render={props => <TheLayout {...props}/>} />
             <Route path="/base" name="Layout" render={props => <TheLayout {...props}/>} />
             <Route path="/buttons" name="Layout" render={props => <TheLayout {...props}/>} />
             <Route path="/charts" name="Layout" render={props => <TheLayout {...props}/>} />
