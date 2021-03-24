@@ -1,16 +1,11 @@
 import React, { useState } from 'react'
 import {
   CButton,
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
   CModal,
   CModalBody,
   CModalFooter,
   CModalHeader,
   CModalTitle,
-  CRow
 } from '@coreui/react'
 
 const TheModal = () => {

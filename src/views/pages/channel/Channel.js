@@ -2,17 +2,7 @@ import React, { useState } from 'react'
 import { CIcon } from '@coreui/icons-react';
 import { freeSet } from '@coreui/icons'
 import {
-  CButton,
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
-  CModal,
-  CModalBody,
-  CModalFooter,
-  CModalHeader,
-  CModalTitle,
-  CRow
+  CButton
 } from '@coreui/react'
 
 const Channel = () => {
