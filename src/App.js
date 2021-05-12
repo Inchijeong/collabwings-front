@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './scss/style.scss';
+// import Home from './views/pages/home/Home';
 
 const loading = (
   <div className="pt-3 text-center">
@@ -12,7 +13,7 @@ const loading = (
 const TheLayout = React.lazy(() => import('./containers/TheLayout'));
 
 // Pages
-// const Home = React.lazy(() => import('./views/pages/home/Home'));
+const Home = React.lazy(() => import('./views/pages/home/Home'));
 const Workspaces = React.lazy(() => import('./views/pages/workspaces/Workspaces'));
 // const Project = React.lazy(() => import('./views/pages/project/Project'));
 const Login = React.lazy(() => import('./views/pages/login/Login'));
@@ -27,7 +28,7 @@ class App extends Component {
       <BrowserRouter>
         <React.Suspense fallback={loading}>
           <Switch>
-            <Route exact path="/" name="Home" render={props => <TheLayout {...props}/>} />
+            <Route exact path="/" name="Home" render={props => <Home {...props}/>} />
             {/* <Route path="/" name="Layout" render={props => <TheLayout {...props}/>} /> */}
             <Route path="/channel/:channel" name="Layout" render={props => <TheLayout {...props}/>} />
             <Route path="/base" name="Layout" render={props => <TheLayout {...props}/>} />
