@@ -11,7 +11,10 @@ import {
   CSubheader,
   CBreadcrumbRouter,
   CLink,
-  CContainer
+  CContainer,
+  CRow,
+  CCol,
+  CButton
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 
@@ -100,6 +103,11 @@ const Home = () => {
         </CHeader>
         <div className="c-body">
           <CContainer>
+            <CRow className="justify-content-center">
+              <CCol md="8">
+                <CButton color="primary" size="lg">로그인 하기</CButton>
+              </CCol>
+            </CRow>
             <a href="https://coreui.io" target="_blank" rel="noopener noreferrer">로그인 하기</a>
           </CContainer>
         </div>
