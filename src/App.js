@@ -27,7 +27,7 @@ class App extends Component {
       <BrowserRouter>
         <React.Suspense fallback={loading}>
           <Switch>
-            <Route path="/" name="Home" render={props => <TheLayout {...props}/>} />
+            <Route exact path="/" name="Home" render={props => <TheLayout {...props}/>} />
             {/* <Route path="/" name="Layout" render={props => <TheLayout {...props}/>} /> */}
             <Route path="/channel/:channel" name="Layout" render={props => <TheLayout {...props}/>} />
             <Route path="/base" name="Layout" render={props => <TheLayout {...props}/>} />

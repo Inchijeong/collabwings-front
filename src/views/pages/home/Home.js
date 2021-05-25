@@ -18,11 +18,6 @@ import CIcon from '@coreui/icons-react'
 
 const Home = () => {
 
-  // document.getElementById('login-btn').onclick((e) => {
-  //   e.preventDefault();
-  //   window.location.href = "/login";
-  // });
-
   return (
     <CContainer>
       <CRow className="justify-content-center">
@@ -33,7 +28,9 @@ const Home = () => {
                 <CForm>
                   <h1>Login</h1>
                   <p className="text-muted">Sign In to your account</p>
-                  <CButton color="primary" size="lg" id="login-btn">로그인 하기</CButton>
+                  <Link to="/login">
+                    <CButton color="primary" size="lg" id="login-btn">로그인 하기</CButton>
+                  </Link>
                 </CForm>
               </CCardBody>
             </CCard>
