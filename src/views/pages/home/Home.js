@@ -21,9 +21,9 @@ const Home = () => {
   return (
     <CContainer>
       <CRow className="justify-content-center">
-        <CCol md="8">
+        <CCol>
           <CCardGroup>
-            <CCard className="p-4">
+            <CCard>
               <CCardBody>
                 <CForm>
                   <h1>Login</h1>
