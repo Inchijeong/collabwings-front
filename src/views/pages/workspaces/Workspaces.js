@@ -34,7 +34,38 @@ const Workspaces = () => {
 
   const [projects, setProjects] = useState([])
   const [modal, setModal] = useState(false);
+  const [inputs, setInputs] = useState({
+    title: '',
+    descriptions: ''
+  });
+  const { title, descriptions } = inputs;
+  
+  const handleInputChange = (e) => {
+    const nextInputs = {
+      ...inputs,
+      [e.target.name]: e.target.value
+    };
+    setInputs(nextInputs);
+  }
 
+  const handleCreateProject = () => {
+    axios.post('http://localhost:8080/api/v1/projects', {
+      title: inputs.title,
+      descriptions: inputs.descriptions
+    })
+    .then(res => {
+      console.log(res);
+      setProjects([res.data.data, ...projects]);
+      setInputs({
+        title: '',
+        descriptions: ''
+      });
+      setModal();
+    })
+    .catch(res => console.log(res));
+  }
+
+  // 리스트 호출
   useEffect(() => {
     axios.get('http://localhost:8080/api/v1/projects')
       .then(res => {
@@ -54,14 +85,14 @@ const Workspaces = () => {
             <CContainer fluid>
               <CRow>
                 {projects.map((project, index) => (
-                  <CCol xs="12" sm="6" md="4">
+                  <CCol xs="12" sm="6" md="4" key={index}>
                     <Link to={`/project/${project.id}`}>
                       <CCard accentColor="info">
                         <CCardHeader>
                           {project.title}
                         </CCardHeader>
                         <CCardBody>
-                          Summary
+                          {project.descriptions}
                         </CCardBody>
                       </CCard>
                     </Link>
@@ -71,7 +102,6 @@ const Workspaces = () => {
                   <CCard
                     accentColor="info"
                     onClick={() => setModal(!modal)}
-                    // onClick={()=>{alert('생성')}}
                   >
                     <CCardHeader>
                       Create a Project
@@ -92,22 +122,38 @@ const Workspaces = () => {
                 </CModalHeader>
                 <CModalBody>
                   <CFormGroup>
-                    <CLabel htmlFor="name">Name</CLabel>                    
-                    <CInput id="name" placeholder="Enter Project Name" required />
+                    <CLabel htmlFor="name">Title</CLabel>                    
+                    <CInput
+                      id="title"
+                      name="title"
+                      value={title}
+                      onChange={handleInputChange}
+                      placeholder="Enter Project Title"
+                      required />
                   </CFormGroup>
                   <CFormGroup>
                     <CLabel htmlFor="name">Descriptions</CLabel>                    
-                    <CInput id="descriptions" placeholder="Enter Project Descriptions" required />
+                    <CInput
+                      id="descriptions"
+                      name="descriptions"
+                      value={descriptions}
+                      onChange={handleInputChange}
+                      placeholder="Enter Project Descriptions"
+                      required />
                   </CFormGroup>
                 </CModalBody>
                 <CModalFooter>
-                  <CButton color="primary">Create</CButton>{' '}
+                  <CButton
+                    color="primary"
+                    onClick={() => handleCreateProject()}
+                  >Create</CButton>{' '}
                   <CButton 
                     color="secondary" 
                     onClick={() => setModal(false)}
                   >Cancel</CButton>
                 </CModalFooter>
               </CModal>
+              {/* 프로젝트 생성 모달 끝*/}
             </CContainer>
           </main>
         </div>
