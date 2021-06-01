@@ -12,7 +12,7 @@ const loading = (
 const TheLayout = React.lazy(() => import('./containers/TheLayout'));
 
 // Pages
-const Home = React.lazy(() => import('./views/pages/home/Home'));
+// const Home = React.lazy(() => import('./views/pages/home/Home'));
 const Workspaces = React.lazy(() => import('./views/pages/workspaces/Workspaces'));
 // const Project = React.lazy(() => import('./views/pages/project/Project'));
 const Login = React.lazy(() => import('./views/pages/login/Login'));

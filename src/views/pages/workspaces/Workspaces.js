@@ -32,7 +32,7 @@ import axios from 'axios';
 
 const Workspaces = () => {
 
-  const [projects, setProjects] = useState([])
+  const [projects, setProjects] = useState([]);
   const [modal, setModal] = useState(false);
   const [inputs, setInputs] = useState({
     title: '',
