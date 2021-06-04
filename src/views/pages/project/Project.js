@@ -6,6 +6,7 @@ import {
   CCol,
   CRow,
   CInput,
+  CButton,
 } from  '@coreui/react'
 import axios from 'axios';
 
@@ -17,6 +18,10 @@ const Project = (prop) => {
   const boardTitleBtn = document.getElementById('add-board-btn');
   const boardTitleInput = document.getElementById('board-title-input');
   
+  const handleClickOutside = () => {
+
+  };
+
   const handleClickAddBoardBtn = () => {    
     boardTitleBtn.classList.add('display-none');
     boardTitleInput.classList.remove('display-none');
@@ -31,18 +36,12 @@ const Project = (prop) => {
       })
       .then(res => {
         console.log(res);
-        // setProjects([res.data.data, ...projects]);
-        // setInputs({
-        //   title: '',
-        //   descriptions: ''
-        // });
-        // setModal();
+        setBoards([res.data.data, ...boards]);
+        boardTitleInput.value = '';
+        boardTitleInput.classList.add('display-none');
+        boardTitleBtn.classList.remove('display-none');
       })
       .catch(res => console.log(res));
-
-      boardTitleInput.value = '';
-      boardTitleInput.classList.add('display-none');
-      boardTitleBtn.classList.remove('display-none');
     }
   };
   
@@ -88,17 +87,28 @@ const Project = (prop) => {
         <CCol xs="12" sm="6" md="4" lg="3" xl="3">
           <CCard>
             <CCardHeader>
-              <h4
-                id="add-board-btn"
-                onClick={handleClickAddBoardBtn}
-              >+ Add a board</h4>
-              <CInput
-                id="board-title-input"
-                name="board-title-input"
-                placeholder="Enter board title"
-                className="display-none"
-                onKeyDown={handleKeyDownBoardTitle}
-              />
+              <CRow>
+                <CCol md="12">
+                  <h4
+                    id="add-board-btn"
+                    onClick={handleClickAddBoardBtn}
+                  >+ Add a board</h4>
+                </CCol>
+              </CRow>
+              <CRow>
+                <CCol md="8" lg="8">
+                  <CInput
+                    id="board-title-input"
+                    name="board-title-input"
+                    placeholder="Enter board title"
+                    className="display-none"
+                    onKeyDown={handleKeyDownBoardTitle}
+                  />
+                </CCol>
+                <CCol md="4" lg="4">
+                  <CButton type="submit" color="primary">Add</CButton>
+                </CCol>
+              </CRow>
             </CCardHeader>
           </CCard>
         </CCol>
