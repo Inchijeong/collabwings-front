@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import {
   CCard,
   CCardBody,
@@ -14,18 +14,16 @@ const Project = (prop) => {
 
   const [project, setProject] = useState([]);
   const [boards, setBoards] = useState([]);
+  const [isAddBoard, setAddBoard] = useState(false);
+  const boardAddCol = useRef();
   const projectId = prop.match.params.project;
-  const boardTitleBtn = document.getElementById('add-board-btn');
-  const boardTitleInput = document.getElementById('board-title-input');
-  
-  const handleClickOutside = () => {
-
-  };
+  const boardAddBtnRow = document.getElementById('board-add-btn-row');
+  const boardAddInputRow = document.getElementById('board-add-input-row');
 
   const handleClickAddBoardBtn = () => {    
-    boardTitleBtn.classList.add('display-none');
-    boardTitleInput.classList.remove('display-none');
-    boardTitleInput.focus();
+    // addBoardBtnRow.classList.add('display-none');
+    // addBoardInputRow.classList.remove('display-none');
+    // addBoardInputRow.focus();
   };
   
   const handleKeyDownBoardTitle = (e) => {
@@ -37,14 +35,27 @@ const Project = (prop) => {
       .then(res => {
         console.log(res);
         setBoards([res.data.data, ...boards]);
-        boardTitleInput.value = '';
-        boardTitleInput.classList.add('display-none');
-        boardTitleBtn.classList.remove('display-none');
+        // addBoardInputRow.value = '';
+        // addBoardInputRow.classList.add('display-none');
+        // addBoardBtnRow.classList.remove('display-none');
       })
       .catch(res => console.log(res));
     }
   };
+
+  const handleClickOutside = ({target}) => {
+    // console.log(target);
+    console.log(boardAddCol);
+    // console.log(boardAddCol.current.contains(target));
+  };
   
+  useEffect(() => {
+    window.addEventListener('click', handleClickOutside);
+    return () => {
+      window.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
   // 리스트 호출
   useEffect(() => {
     axios.get('http://localhost:8080/api/v1/projects/'+projectId)
@@ -73,7 +84,7 @@ const Project = (prop) => {
               </CCardHeader>
             </CCard>
             {board.cards.map((card, cardIndex) => (
-              <CCard>
+              <CCard key={cardIndex}>
                 <CCardHeader>
                   {card.title}
                 </CCardHeader>
@@ -84,28 +95,33 @@ const Project = (prop) => {
             ))}
           </CCol>
         ))}
-        <CCol xs="12" sm="6" md="4" lg="3" xl="3">
+        <CCol 
+          xs="12" sm="6" md="4" lg="3" xl="3"
+          onClick={handleClickAddBoardBtn}
+          innerRef={boardAddCol}
+        >
           <CCard>
             <CCardHeader>
-              <CRow>
+              <CRow
+                id="board-add-btn-row"
+              >
                 <CCol md="12">
-                  <h4
-                    id="add-board-btn"
-                    onClick={handleClickAddBoardBtn}
-                  >+ Add a board</h4>
+                  <h4>+ Add a board</h4>
                 </CCol>
               </CRow>
-              <CRow>
-                <CCol md="8" lg="8">
+              <CRow
+                id="board-add-input-row"
+                className="display-none"
+              >
+                <CCol md="9" lg="9">
                   <CInput
-                    id="board-title-input"
                     name="board-title-input"
                     placeholder="Enter board title"
-                    className="display-none"
+                    // className="display-none"
                     onKeyDown={handleKeyDownBoardTitle}
                   />
                 </CCol>
-                <CCol md="4" lg="4">
+                <CCol md="3" lg="3">
                   <CButton type="submit" color="primary">Add</CButton>
                 </CCol>
               </CRow>
