@@ -14,47 +14,51 @@ const Project = (prop) => {
 
   const [project, setProject] = useState([]);
   const [boards, setBoards] = useState([]);
-  const [isAddBoard, setAddBoard] = useState(false);
+  const [isAddableBoard, setAddableBoard] = useState(false);
   const boardAddCol = useRef();
   const projectId = prop.match.params.project;
   const boardAddBtnRow = document.getElementById('board-add-btn-row');
   const boardAddInputRow = document.getElementById('board-add-input-row');
+  const boardAddTitleInput = document.getElementById('board-add-title-input');
 
-  const handleClickAddBoardBtn = () => {    
-    // addBoardBtnRow.classList.add('display-none');
-    // addBoardInputRow.classList.remove('display-none');
-    // addBoardInputRow.focus();
-  };
-  
-  const handleKeyDownBoardTitle = (e) => {
-    if(e.key === 'Enter'){
-      axios.post('http://localhost:8080/api/v1/boards', {
-        title: e.target.value,
-        project_id: projectId
-      })
-      .then(res => {
-        console.log(res);
-        setBoards([res.data.data, ...boards]);
-        // addBoardInputRow.value = '';
-        // addBoardInputRow.classList.add('display-none');
-        // addBoardBtnRow.classList.remove('display-none');
-      })
-      .catch(res => console.log(res));
+  const handleClickBoardAddCol = () => {
+    console.log('isAddableBoard', isAddableBoard);
+    if(!isAddableBoard){
+      boardAddBtnRow.classList.add('display-none');
+      boardAddInputRow.classList.remove('display-none');
+      boardAddInputRow.focus();
+      setAddableBoard(true);
     }
   };
+  const handleClickBoardAddBtn = (e) => {
+    axios.post('http://localhost:8080/api/v1/boards', {
+      title: boardAddTitleInput.value,
+      project_id: projectId
+    })
+    .then(res => {
+      console.log(res);
+      setBoards([res.data.data, ...boards]);
+      setAddableBoard(false);
+      boardAddTitleInput.value = '';
+      boardAddInputRow.classList.add('display-none');
+      boardAddBtnRow.classList.remove('display-none');
+    })
+    .catch(res => console.log(res));
+  }
 
-  const handleClickOutside = ({target}) => {
-    // console.log(target);
-    console.log(boardAddCol);
-    // console.log(boardAddCol.current.contains(target));
+  const handleKeyDownBoardAddTitle = (e) => {
+    if(e.key === 'Enter') handleClickBoardAddBtn();
+  };
+
+  const handleClickOutside = (e) => {
+    if(isAddableBoard && (!boardAddCol.current || !boardAddCol.current.contains(e.target))){
+      setAddableBoard(false);
+      boardAddInputRow.classList.add('display-none');
+      boardAddBtnRow.classList.remove('display-none');
+    }
   };
   
-  useEffect(() => {
-    window.addEventListener('click', handleClickOutside);
-    return () => {
-      window.removeEventListener('click', handleClickOutside);
-    };
-  }, []);
+  window.addEventListener('click', handleClickOutside);
 
   // 리스트 호출
   useEffect(() => {
@@ -97,16 +101,17 @@ const Project = (prop) => {
         ))}
         <CCol 
           xs="12" sm="6" md="4" lg="3" xl="3"
-          onClick={handleClickAddBoardBtn}
+          onClick={handleClickBoardAddCol}
           innerRef={boardAddCol}
         >
           <CCard>
             <CCardHeader>
               <CRow
                 id="board-add-btn-row"
+                className="cusor-pointer"
               >
                 <CCol md="12">
-                  <h4>+ Add a board</h4>
+                  <h4>+ Add a Board</h4>
                 </CCol>
               </CRow>
               <CRow
@@ -115,14 +120,18 @@ const Project = (prop) => {
               >
                 <CCol md="9" lg="9">
                   <CInput
-                    name="board-title-input"
+                    id="board-add-title-input"
+                    name="board-add-title-input"
                     placeholder="Enter board title"
-                    // className="display-none"
-                    onKeyDown={handleKeyDownBoardTitle}
+                    onKeyDown={handleKeyDownBoardAddTitle}
                   />
                 </CCol>
                 <CCol md="3" lg="3">
-                  <CButton type="submit" color="primary">Add</CButton>
+                  <CButton
+                    type="submit"
+                    color="primary"
+                    onClick={handleClickBoardAddBtn}
+                  >Add</CButton>
                 </CCol>
               </CRow>
             </CCardHeader>

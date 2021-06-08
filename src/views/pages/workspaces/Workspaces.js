@@ -98,7 +98,7 @@ const Workspaces = () => {
                     </Link>
                   </CCol>
                 ))}
-                <CCol xs="12" sm="6" md="4">
+                <CCol xs="12" sm="6" md="4" className="cusor-pointer">
                   <CCard
                     accentColor="info"
                     onClick={() => setModal(!modal)}
