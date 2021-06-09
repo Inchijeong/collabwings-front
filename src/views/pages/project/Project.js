@@ -15,14 +15,13 @@ const Project = (prop) => {
   const [project, setProject] = useState([]);
   const [boards, setBoards] = useState([]);
   const [isAddableBoard, setAddableBoard] = useState(false);
-  const boardAddCol = useRef();
+  const boardAddCardHeader = useRef();
   const projectId = prop.match.params.project;
   const boardAddBtnRow = document.getElementById('board-add-btn-row');
   const boardAddInputRow = document.getElementById('board-add-input-row');
   const boardAddTitleInput = document.getElementById('board-add-title-input');
 
-  const handleClickBoardAddCol = () => {
-    console.log('isAddableBoard', isAddableBoard);
+  const handleClickBoardAddCardHeader = () => {
     if(!isAddableBoard){
       boardAddBtnRow.classList.add('display-none');
       boardAddInputRow.classList.remove('display-none');
@@ -51,7 +50,7 @@ const Project = (prop) => {
   };
 
   const handleClickOutside = (e) => {
-    if(isAddableBoard && (!boardAddCol.current || !boardAddCol.current.contains(e.target))){
+    if(isAddableBoard && (!boardAddCardHeader.current || !boardAddCardHeader.current.contains(e.target))){
       setAddableBoard(false);
       boardAddInputRow.classList.add('display-none');
       boardAddBtnRow.classList.remove('display-none');
@@ -86,30 +85,41 @@ const Project = (prop) => {
               <CCardHeader>
                 <h4>{board.title}</h4>
               </CCardHeader>
+              <CCardBody>
+                {board.cards.map((card, cardIndex) => (
+                  <CCard key={cardIndex}>
+                    <CCardHeader>
+                      {card.title}
+                    </CCardHeader>
+                    <CCardBody>
+                      Card Contents
+                    </CCardBody>
+                  </CCard>
+                ))}
+                <CCard>
+                  <CCardHeader>
+                    예시 카드
+                  </CCardHeader>
+                  <CCardBody>
+                    Card Contents
+                  </CCardBody>
+                </CCard>
+                  <CButton
+                    variant="outline"
+                    color="secondary"
+                    block
+                  >+ Add a Card</CButton>
+              </CCardBody>
             </CCard>
-            {board.cards.map((card, cardIndex) => (
-              <CCard key={cardIndex}>
-                <CCardHeader>
-                  {card.title}
-                </CCardHeader>
-                <CCardBody>
-                  Card Contents
-                </CCardBody>
-              </CCard>
-            ))}
           </CCol>
         ))}
-        <CCol 
-          xs="12" sm="6" md="4" lg="3" xl="3"
-          onClick={handleClickBoardAddCol}
-          innerRef={boardAddCol}
-        >
-          <CCard>
-            <CCardHeader>
-              <CRow
-                id="board-add-btn-row"
-                className="cusor-pointer"
-              >
+        <CCol xs="12" sm="6" md="4" lg="3" xl="3">
+          <CCard className="cusor-pointer">
+            <CCardHeader
+              onClick={handleClickBoardAddCardHeader}
+              innerRef={boardAddCardHeader}
+            >
+              <CRow id="board-add-btn-row">
                 <CCol md="12">
                   <h4>+ Add a Board</h4>
                 </CCol>
@@ -122,13 +132,12 @@ const Project = (prop) => {
                   <CInput
                     id="board-add-title-input"
                     name="board-add-title-input"
-                    placeholder="Enter board title"
+                    placeholder="Enter Board Title"
                     onKeyDown={handleKeyDownBoardAddTitle}
                   />
                 </CCol>
                 <CCol md="3" lg="3">
                   <CButton
-                    type="submit"
                     color="primary"
                     onClick={handleClickBoardAddBtn}
                   >Add</CButton>
