@@ -7,6 +7,13 @@ import {
   CRow,
   CInput,
   CButton,
+  CLabel,
+  CFormGroup,
+  CModal,
+  CModalTitle,
+  CModalHeader,
+  CModalBody,
+  CModalFooter,
 } from  '@coreui/react'
 import axios from 'axios';
 
@@ -15,11 +22,44 @@ const Project = (prop) => {
   const [project, setProject] = useState([]);
   const [boards, setBoards] = useState([]);
   const [isAddableBoard, setAddableBoard] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [inputs, setInputs] = useState({
+    title: '',
+    contents: ''
+  });
+  const { title, contents } = inputs;
+  const [seletedBoardIndex, setSeletedBoardIndex] = useState(-1);
   const boardAddCardHeader = useRef();
   const projectId = prop.match.params.project;
   const boardAddBtnRow = document.getElementById('board-add-btn-row');
   const boardAddInputRow = document.getElementById('board-add-input-row');
   const boardAddTitleInput = document.getElementById('board-add-title-input');
+
+  const handleInputChange = (e) => {
+    const nextInputs = {
+      ...inputs,
+      [e.target.name]: e.target.value
+    };
+    setInputs(nextInputs);
+  }
+
+  const handleCreateCard = () => {
+    axios.post('http://localhost:8080/api/v1/cards', {
+      title: inputs.title,
+      contents: inputs.contents,
+      board_id: seletedBoardIndex
+    })
+    .then(res => {
+      const targetBoard = boards.filter(b => {return b.id == seletedBoardIndex})[0];
+      targetBoard.cards.push(res.data.data)
+      setInputs({
+        title: '',
+        contents: ''
+      });
+      setModal();
+    })
+    .catch(res => console.log(res));
+  }
 
   const handleClickBoardAddCardHeader = () => {
     if(!isAddableBoard){
@@ -36,7 +76,7 @@ const Project = (prop) => {
     })
     .then(res => {
       console.log(res);
-      setBoards([res.data.data, ...boards]);
+      setBoards([...boards, res.data.data]);
       setAddableBoard(false);
       boardAddTitleInput.value = '';
       boardAddInputRow.classList.add('display-none');
@@ -79,7 +119,7 @@ const Project = (prop) => {
         </CCardBody>
       </CCard>
       <CRow>
-        {boards.map((board, boardIndex) => (
+        {boards.slice(0).reverse().map((board, boardIndex) => (
           <CCol xs="12" sm="6" md="4" lg="3" xl="3" key={boardIndex}>
             <CCard>
               <CCardHeader>
@@ -92,23 +132,19 @@ const Project = (prop) => {
                       {card.title}
                     </CCardHeader>
                     <CCardBody>
-                      Card Contents
+                      {card.contents}
                     </CCardBody>
                   </CCard>
                 ))}
-                <CCard>
-                  <CCardHeader>
-                    예시 카드
-                  </CCardHeader>
-                  <CCardBody>
-                    Card Contents
-                  </CCardBody>
-                </CCard>
-                  <CButton
-                    variant="outline"
-                    color="secondary"
-                    block
-                  >+ Add a Card</CButton>
+                <CButton
+                  variant="outline"
+                  color="secondary"
+                  onClick={() => {
+                    setModal(!modal);
+                    setSeletedBoardIndex(board.id);
+                  }}
+                  block
+                >+ Add a Card</CButton>
               </CCardBody>
             </CCard>
           </CCol>
@@ -147,6 +183,48 @@ const Project = (prop) => {
           </CCard>
         </CCol>
       </CRow>
+      {/* 카드 생성 모달 */}
+      <CModal 
+      show={modal} 
+      onClose={setModal}
+      >
+        <CModalHeader closeButton>
+          <CModalTitle>Create a Card</CModalTitle>
+        </CModalHeader>
+        <CModalBody>
+          <CFormGroup>
+            <CLabel htmlFor="name">Title</CLabel>                    
+            <CInput
+              id="title"
+              name="title"
+              value={title}
+              onChange={handleInputChange}
+              placeholder="Enter Card Title"
+              required />
+          </CFormGroup>
+          <CFormGroup>
+            <CLabel htmlFor="name">Contents</CLabel>                    
+            <CInput
+              id="contents"
+              name="contents"
+              value={contents}
+              onChange={handleInputChange}
+              placeholder="Enter Card Contents"
+              required />
+          </CFormGroup>
+        </CModalBody>
+        <CModalFooter>
+          <CButton
+            color="primary"
+            onClick={() => handleCreateCard()}
+          >Create</CButton>{' '}
+          <CButton 
+            color="secondary" 
+            onClick={() => setModal(false)}
+          >Cancel</CButton>
+        </CModalFooter>
+      </CModal>
+      {/* 카드 생성 모달 끝*/}
     </>
   )
 }
