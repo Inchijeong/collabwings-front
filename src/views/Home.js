@@ -21,10 +21,13 @@ const Home = () => {
             <CCard>
               <CCardBody>
                 <CForm>
-                  <h1>Login</h1>
+                  {/* <h1>Login</h1>
                   <p className="text-muted">Sign In to your account</p>
                   <Link to="/login">
                     <CButton color="primary" size="lg" id="login-btn">로그인 하기</CButton>
+                  </Link> */}
+                  <Link to="/workspaces">
+                    <CButton color="primary" size="lg" id="workspaces-btn" block>Go Workspaces</CButton>
                   </Link>
                 </CForm>
               </CCardBody>

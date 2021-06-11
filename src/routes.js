@@ -18,9 +18,9 @@ const Popovers = React.lazy(() => import('./views/base/popovers/Popovers'));
 const ProgressBar = React.lazy(() => import('./views/base/progress-bar/ProgressBar'));
 const Switches = React.lazy(() => import('./views/base/switches/Switches'));
 
-const Home = React.lazy(() => import('./views/pages/home/Home'));
-const Workspaces = React.lazy(() => import('./views/pages/workspaces/Workspaces'));
-const Project = React.lazy(() => import('./views/pages/project/Project'));
+const Home = React.lazy(() => import('./views/Home'));
+const Workspaces = React.lazy(() => import('./views/Workspaces'));
+const Project = React.lazy(() => import('./views/Project'));
 const Channel = React.lazy(() => import('./views/pages/channel/Channel'));
 const Tabs = React.lazy(() => import('./views/base/tabs/Tabs'));
 const Tooltips = React.lazy(() => import('./views/base/tooltips/Tooltips'));

@@ -13,7 +13,7 @@ const TheLayout = React.lazy(() => import('./containers/TheLayout'));
 
 // Pages
 // const Home = React.lazy(() => import('./views/pages/home/Home'));
-const Workspaces = React.lazy(() => import('./views/pages/workspaces/Workspaces'));
+const Workspaces = React.lazy(() => import('./views/Workspaces'));
 // const Project = React.lazy(() => import('./views/pages/project/Project'));
 const Login = React.lazy(() => import('./views/pages/login/Login'));
 const Register = React.lazy(() => import('./views/pages/register/Register'));
@@ -40,7 +40,7 @@ class App extends Component {
             <Route path="/theme" name="Layout" render={props => <TheLayout {...props}/>} />
             <Route path="/users" name="Layout" render={props => <TheLayout {...props}/>} />
             <Route path="/widgets" name="Layout" render={props => <TheLayout {...props}/>} />
-            <Route exact path="/workspaces" name="Workspaces" render={props => <Workspaces {...props}/>} />
+            <Route exact path="/workspaces" name="Workspaces" render={props => <TheLayout {...props}/>} />
             <Route exact path="/project/:project" name="Project" render={props => <TheLayout {...props}/>} />
             <Route exact path="/login" name="Login Page" render={props => <Login {...props}/>} />
             <Route exact path="/register" name="Register Page" render={props => <Register {...props}/>} />
