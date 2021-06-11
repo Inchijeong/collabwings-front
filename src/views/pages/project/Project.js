@@ -6,6 +6,7 @@ import {
   CCol,
   CRow,
   CInput,
+  CTextarea,
   CButton,
   CLabel,
   CFormGroup,
@@ -50,7 +51,7 @@ const Project = (prop) => {
       board_id: seletedBoardIndex
     })
     .then(res => {
-      const targetBoard = boards.filter(b => {return b.id == seletedBoardIndex})[0];
+      const targetBoard = boards.filter(b => {return b.id === seletedBoardIndex})[0];
       targetBoard.cards.push(res.data.data)
       setInputs({
         title: '',
@@ -203,14 +204,15 @@ const Project = (prop) => {
               required />
           </CFormGroup>
           <CFormGroup>
-            <CLabel htmlFor="name">Contents</CLabel>                    
-            <CInput
+            <CLabel htmlFor="name">Contents</CLabel>
+            <CTextarea 
               id="contents"
               name="contents"
               value={contents}
               onChange={handleInputChange}
               placeholder="Enter Card Contents"
-              required />
+              rows="10"
+            />
           </CFormGroup>
         </CModalBody>
         <CModalFooter>
